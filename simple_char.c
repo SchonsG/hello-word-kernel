@@ -9,6 +9,12 @@ static char data_buf[100];
 static ssize_t dev_read(struct file *file, char __user *ubuf,
                         size_t count, loff_t *ppos)
 {
+    for (int i = 0; i < sizeof(data_buf) && data_buf[i] != '\0'; i++) {
+        if (data_buf[i] >= 'a' && data_buf[i] < 'z') {
+            data_buf[i] = data_buf[i] - 'a' + 'A';
+        }
+    }
+
     return simple_read_from_buffer(ubuf, count, ppos,
                                    data_buf, sizeof(data_buf));
 }
