@@ -3,7 +3,11 @@ T_ADDR=192.168.64.9
 T_USER=gschons
 T_PATH=/home/$(T_USER)/kernel-module
 
-obj-m += hello.o
+ifdef module
+MODULE=$(module)
+endif
+
+obj-m += $(MODULE).o
 
 build:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
